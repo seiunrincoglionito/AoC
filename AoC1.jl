@@ -26,17 +26,17 @@ max_cal()
 function minmax_cal(max_counter::Int)
     f = open("input.txt")
 
-    minmaxx = [-1, -1, -1]
+    minmaxx = [0, 0, 0]
     t = 0
     c = 1
     for ln in eachline(f) 
         if ln == ""
             if c ≤ max_counter
                 minmaxx[c] = t
+                c += 1
+            elseif t > minimum(minmaxx)
                 sort!(minmaxx)
-            elseif t > min(minmaxx)
-                minmax[1] =  t
-                sort!(minmaxx)
+                minmaxx[1] =  t
             end
             t = 0
         else
@@ -44,7 +44,7 @@ function minmax_cal(max_counter::Int)
         end
     end
 
-print(sum(minmaxx))
+    print(sum(minmaxx))
 
 end
 

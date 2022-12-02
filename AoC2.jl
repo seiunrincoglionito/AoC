@@ -109,3 +109,20 @@ function new_score()
 end
 
 print(new_score())
+
+function new_scoreGio(filename::String)
+    f = open(filename)
+    score = 0
+    score_wl = NamedArray([0, 3, 6], (["X", "Y", "Z"],))
+    move_decript = NamedArray(["s" "r" "p"; "r" "p" "s"; "p" "s" "r"], (["A", "B", "C"], ["X", "Y", "Z"]))
+    score_move = NamedArray([1, 2, 3], (["r", "p", "s"], ))
+
+    
+    for ln in eachline(f)
+        ln_split = split(ln, " ")
+        score += (score_wl[String(ln_split[2])] + score_move[move_decript[String(ln_split[1]), String(ln_split[2])]])
+    end
+    return score
+end
+
+print(new_scoreGio("input_2.txt"))

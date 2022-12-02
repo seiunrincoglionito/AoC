@@ -43,6 +43,7 @@ function total_score()
 end
 
 total_score()
+print(" ")
 
 function total_scoreGio(filename::String)
     f = open(filename)
@@ -60,3 +61,51 @@ function total_scoreGio(filename::String)
 end
 
 print(total_scoreGio("input_2.txt"))
+print(" ")
+
+function new_score()
+
+    f = open("input_2.txt")
+    score = 0
+
+    for ln in eachline(f)
+
+        adv_play = split(ln," ")[1]
+        my_play = split(ln," ")[2]
+
+        if my_play == "X" #lose
+            if adv_play == "A" #rock -> scissors
+                score += 3
+            elseif adv_play == "B" #paper -> rock
+                score += 1  
+            elseif adv_play == "C" #scissors -> paper
+                score += 2
+            end
+
+        elseif my_play == "Y" #draw
+            score += 3
+            if adv_play == "A" #rock -> rock
+                score +=1
+            elseif adv_play == "B" #paper -> paper
+                score += 2
+            elseif adv_play == "C" #scissors -> scissors
+                score += 3
+            end
+
+        elseif my_play == "Z" #win
+            score += 6
+            if adv_play == "A" #rock -> paper
+                score += 2
+            elseif adv_play == "B" #paper -> scissors
+                score += 3
+            elseif adv_play == "C" #scissors -> rock
+                score += 1
+            end
+           
+        end
+        
+    end
+    return score
+end
+
+print(new_score())

@@ -1,3 +1,7 @@
+using Pkg
+Pkg.activate(".")
+using NamedArrays
+
 function total_score()
 
     f = open("input_2.txt")
@@ -39,3 +43,20 @@ function total_score()
 end
 
 total_score()
+
+function total_scoreGio(filename::String)
+    f = open(filename)
+    score = 0
+    score_wl = NamedArray([3 6 0; 0 3 6; 6 0 3], (["A", "B", "C"], ["X", "Y", "Z"]))
+    score_move = NamedArray([1 2 3; 1 2 3; 1 2 3], (["A", "B", "C"], ["X", "Y", "Z"]))
+    score_tot = score_wl + score_move
+
+    
+    for ln in eachline(f)
+        ln_split = split(ln, " ")
+        score += score_tot[String(ln_split[1]), String(ln_split[2])]
+    end
+    return score
+end
+
+print(total_scoreGio("input_2.txt"))
